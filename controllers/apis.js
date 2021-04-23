@@ -1,4 +1,6 @@
 const router = require('express').Router();
-const { Exercise, Workout } = require('../models');
+const { Workout } = require('../models');
+
+
 
 module.exports = router;
