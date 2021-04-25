@@ -2,37 +2,24 @@
 
 ## Description
 
-Manually formatting a readme for homework and projects is repetitive and I need to cement node.js concepts in my brain, so this is an application that generates a readme based on user inputs in the console and kills two birds with one stone. 
+A tracker app that combines cloud database hosting with user inputs to track and graph individual exercises in a users workout routine.
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
 - [License](#license)
 
 ## Installation
 
-User must run
-
-    npm install
-
-<p>in the terminal to ensure the inquirer node module is available.</p>
+[Live deployment here!](https://infinite-chamber-71698.herokuapp.com/?id=6085f0694f2ccd0015ee4f12)
 
 ## Usage
 
-1. In the terminal run
+From the homepage either start a new workout and add individual exercises or update the last created workout with new ones. Once workouts have been added the dashboard displays data about the last workout.
 
-        node index.js
-
-2. Enter information about your app by following the prompts in the terminal
-3. Open SAMPLE.md to view the generated readme file
-
-[Example video available here!](https://www.youtube.com/watch?v=IObhS9wkEqw)
-
-## Credits
-
-inquirer npm
+:
+![Graphs!](./public/screenshot.png)
 
 ## License
 
