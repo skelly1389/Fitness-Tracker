@@ -1,21 +1,51 @@
 const router = require("express").Router();
 const db = require("../models");
 
-router.get("/api/workouts", ({ body }, res) => {
+// router.get("/api/workouts", ({ body }, res) => {
+//   db.Workout.aggregate([
+//       {
+//           $addFields: {
+//               totalDuration: { $sum: "$exercises.duration" }
+//           }
+//       }
+//   ])
+//       .then(dbWorkout => {
+//           res.json(dbWorkout);
+//       })
+//       .catch(err => {
+//           res.status(400).json(err);
+//       });
+// });
+
+router.get("/workouts", (req, res) => {
+  db.Workout.find().sort({ day: -1})
+    .then(dbUser => {
+      res.json(dbUser);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
+router.get("/api/workouts/range", ({ body }, res) => {
   db.Workout.aggregate([
       {
           $addFields: {
-              totalDuration: { $sum: "$exercises.duration" }
+              totalDuration: { $sum: "$exercises.duration" },
+              totalWeight: { $sum: "$exercises.weight" },
+              totalSets: { $sum: "$exercises.sets" },
+              totalReps: { $sum: "$exercises.reps" },
+              totalDistance: { $sum: "$exercises.distance" }
           }
       }
   ])
-      .then(dbWorkout => {
-          res.json(dbWorkout);
-      })
-      .catch(err => {
-          res.status(400).json(err);
-      });
-});
+  .then(dbWorkout => {
+      res.json(dbWorkout);
+  })
+  .catch(err => {
+      res.status(400).json(err);
+  });
+})
 
 router.post("/api/workouts", (req, res) => {
   db.Workout.create({
