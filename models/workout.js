@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const WorkOutSchema = new Schema({
   day: Date,
   exercises: [],
-  
 },
 {
   toJSON: {

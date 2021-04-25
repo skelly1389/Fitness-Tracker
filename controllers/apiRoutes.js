@@ -1,33 +1,33 @@
 const router = require("express").Router();
 const db = require("../models");
 
-// router.get("/api/workouts", ({ body }, res) => {
-//   db.Workout.aggregate([
-//       {
-//           $addFields: {
-//               totalDuration: { $sum: "$exercises.duration" }
-//           }
-//       }
-//   ])
-//       .then(dbWorkout => {
-//           res.json(dbWorkout);
-//       })
-//       .catch(err => {
-//           res.status(400).json(err);
-//       });
-// });
-
-router.get("/workouts", (req, res) => {
-  db.Workout.find().sort({ day: -1})
-    .then(dbUser => {
-      res.json(dbUser);
-    })
-    .catch(err => {
-      res.json(err);
-    });
+router.get("/workouts", ({ body }, res) => {
+  db.Workout.aggregate([
+      {
+          $addFields: {
+              totalDuration: { $sum: "$exercises.duration" }
+          }
+      }
+  ])
+      .then(dbWorkout => {
+          res.json(dbWorkout);
+      })
+      .catch(err => {
+          res.status(400).json(err);
+      });
 });
 
-router.get("/api/workouts/range", ({ body }, res) => {
+// router.get("/workouts", (req, res) => {
+//   db.Workout.find()
+//     .then(dbUser => {
+//       res.json(dbUser);
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     });
+// });
+
+router.get("/workouts/range", ({ body }, res) => {
   db.Workout.aggregate([
       {
           $addFields: {
@@ -47,7 +47,7 @@ router.get("/api/workouts/range", ({ body }, res) => {
   });
 })
 
-router.post("/api/workouts", (req, res) => {
+router.post("/workouts", (req, res) => {
   db.Workout.create({
       day: Date.now()
   })
@@ -60,7 +60,7 @@ router.post("/api/workouts", (req, res) => {
       });
 });
 
-router.put("/api/workouts/:id", (req, res) => {
+router.put("/workouts/:id", (req, res) => {
   db.Workout.findByIdAndUpdate(
     req.params.id,
     { $push: { exercises: req.body } },
@@ -68,7 +68,7 @@ router.put("/api/workouts/:id", (req, res) => {
   )
     .then((dbWorkout) => res.json(dbWorkout))
     .catch((err) => {
-      res.status(404).json(err);
+      res.status(500).json(err);
     });
 });
 
